@@ -21,15 +21,6 @@
     "main": [
       "fl205.ironfurnaces.IronFurnaces"
     ],
-		"beforeGameStart": [
-			"fl205.ironfurnaces.IronFurnaces"
-		],
-		"afterGameStart": [
-			"fl205.ironfurnaces.IronFurnaces"
-		],
-		"recipesReady": [
-			"fl205.ironfurnaces.IronFurnacesRecipes"
-		],
 		"initModels": [
 			"fl205.ironfurnaces.IronFurnacesBlockModels"
 		],
@@ -39,11 +30,13 @@
   },
 
   "depends": {
-    "fabricloader": ">0.15.5",
-		"halplibe": ">=5.1.1"
+		"fabricloader": ">=${fabricloader}",
+		"minecraft": "*",
+		"java": ">=${java}",
+		"halplibe": ">=6.1.0"
   },
 	"suggests": {
-		"btwaila": ">=1.1.2-7.2-pre2"
+		"btwaila": ">=1.3.0-8.0-pre1"
 	},
   "icon": "icon.png"
 }

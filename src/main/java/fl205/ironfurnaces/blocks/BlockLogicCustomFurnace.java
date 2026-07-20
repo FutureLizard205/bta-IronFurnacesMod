@@ -1,36 +1,39 @@
 package fl205.ironfurnaces.blocks;
 
-import fl205.ironfurnaces.tileEntities.TileEntityCustomFurnace;
 import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.entity.TileEntityFurnace;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.awt.*;
 import java.util.Random;
 
 import static fl205.ironfurnaces.IronFurnaces.*;
 
 public abstract class BlockLogicCustomFurnace extends BlockLogicRotatable {
 	protected final boolean isActive;
-	public static boolean keepFurnaceInventory = false;
 	protected final int idleID;
 
 	public BlockLogicCustomFurnace(Block<?> block, boolean isActive, int idleID) {
-		super(block, Material.metal);
+		super(block, Materials.METAL);
 		this.isActive = isActive;
 		this.idleID = idleID;
 	}
 
-	@SuppressWarnings("ConstantConditions")
-	public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
+	public ItemStack[] getBreakResult(@NotNull World world, @NotNull EnumDropCause dropCause, int data, @Nullable TileEntity tileEntity) {
 		switch (dropCause) {
 			case PICK_BLOCK:
 			case EXPLOSION:
@@ -43,69 +46,59 @@ public abstract class BlockLogicCustomFurnace extends BlockLogicRotatable {
 		}
 	}
 
-	public void animationTick(World world, int x, int y, int z, Random rand) {
+	public void animationTick(@NotNull World world, @NotNull TilePosc tilePos, @NotNull Random rand) {
 		if (this.isActive) {
-			int l = world.getBlockMetadata(x, y, z);
-			double poxX = (double) x + (double) 0.5F;
-			double posY = (double) y + (double) 0.0F + (double) (rand.nextFloat() * 6.0F / 16.0F);
-			double posZ = (double) z + (double) 0.5F;
-			double f3 = 0.52F;
-			double f4 = (rand.nextFloat() * 0.6F - 0.3F);
-			if (l == 4) {
-				world.spawnParticle("smoke", poxX - f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
-				world.spawnParticle("flame", poxX - f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
-			} else if (l == 5) {
-				world.spawnParticle("smoke", poxX + f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
-				world.spawnParticle("flame", poxX + f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
-			} else if (l == 2) {
-				world.spawnParticle("smoke", poxX + f4, posY, posZ - f3, 0.0F, 0.0F, 0.0F, 0);
-				world.spawnParticle("flame", poxX + f4, posY, posZ - f3, 0.0F, 0.0F, 0.0F, 0);
-			} else if (l == 3) {
-				world.spawnParticle("smoke", poxX + f4, posY, posZ + f3, 0.0F, 0.0F, 0.0F, 0);
-				world.spawnParticle("flame", poxX + f4, posY, posZ + f3, 0.0F, 0.0F, 0.0F, 0);
+			double poxX = (double)tilePos.x() + (double)0.5F;
+			double posY = (double)tilePos.y() + (double)0.0F + (double)(rand.nextFloat() * 6.0F / 16.0F);
+			double posZ = (double)tilePos.z() + (double)0.5F;
+			double f3 = (double)0.52F;
+			double f4 = (double)(rand.nextFloat() * 0.6F - 0.3F);
+			switch (BlockLogicRotatable.getDirectionFromMeta(world.getBlockData(tilePos))) {
+				case WEST:
+					world.spawnParticle("smoke", poxX - f3, posY, posZ + f4, (double)0.0F, (double)0.0F, (double)0.0F, 0, false);
+					world.spawnParticle("flame", poxX - f3, posY, posZ + f4, (double)0.0F, (double)0.0F, (double)0.0F, 0, false);
+					break;
+				case EAST:
+					world.spawnParticle("smoke", poxX + f3, posY, posZ + f4, (double)0.0F, (double)0.0F, (double)0.0F, 0, false);
+					world.spawnParticle("flame", poxX + f3, posY, posZ + f4, (double)0.0F, (double)0.0F, (double)0.0F, 0, false);
+					break;
+				case NORTH:
+					world.spawnParticle("smoke", poxX + f4, posY, posZ - f3, (double)0.0F, (double)0.0F, (double)0.0F, 0, false);
+					world.spawnParticle("flame", poxX + f4, posY, posZ - f3, (double)0.0F, (double)0.0F, (double)0.0F, 0, false);
+					break;
+				case SOUTH:
+					world.spawnParticle("smoke", poxX + f4, posY, posZ + f3, (double)0.0F, (double)0.0F, (double)0.0F, 0, false);
+					world.spawnParticle("flame", poxX + f4, posY, posZ + f3, (double)0.0F, (double)0.0F, (double)0.0F, 0, false);
 			}
 
 		}
 	}
 
-	public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
+	public boolean onInteracted(@NotNull World world, @NotNull TilePosc tilePos, @NotNull Player player, @Nullable Side side, double xHit, double yHit) {
 		if (!world.isClientSide) {
-			TileEntityCustomFurnace tileEntityCustomFurnace = (TileEntityCustomFurnace) world.getTileEntity(x, y, z);
-			player.displayFurnaceScreen(tileEntityCustomFurnace);
+			TileEntity var10 = world.getTileEntity(tilePos);
+			if (var10 instanceof TileEntityFurnace furnace) {
+				player.displayFurnaceScreen(furnace);
+			}
 		}
+
 		return true;
 	}
 
-	public static void updateFurnaceBlockState(boolean lit, @NotNull World world, int x, int y, int z, int idleID) {
-		int meta = world.getBlockMetadata(x, y, z);
-		TileEntity tileentity = world.getTileEntity(x, y, z);
-		if (tileentity == null) {
-			String msg = "CustomFurnace is missing Tile Entity at x: " + x + " y: " + y + " z: " + z + ", block will be removed!";
+	public static void updateFurnaceBlockState(@NotNull World world, @NotNull TilePos tilePos, boolean lit, int idleID) {
+		if (!(world.getTileEntity(tilePos) instanceof TileEntityFurnace)) {
+			String msg = "Custom Furnace is missing Tile Entity at " + String.valueOf(tilePos) + ", block will be removed!";
 			if (Global.BUILD_CHANNEL.isUnstableBuild()) {
 				throw new RuntimeException(msg);
 			} else {
-				world.setBlockWithNotify(x, y, z, 0);
+				world.setBlockTypeNotify(tilePos, Blocks.AIR);
 				LOGGER.warn(msg);
 			}
 		} else {
-			keepFurnaceInventory = true;
-			int alreadyLit;
-			int currentId = tileentity.getBlockId();
-			if (tileentity.getBlockId() == idleID) {
-				alreadyLit = 0;
-			} else {
-				alreadyLit = 1;
-			}
-			if (lit) {
-				world.setBlockWithNotify(x, y, z, currentId+1-alreadyLit);
-			} else {
-				world.setBlockWithNotify(x, y, z, currentId-alreadyLit);
-			}
-
-			keepFurnaceInventory = false;
-			world.setBlockMetadataWithNotify(x, y, z, meta);
-			tileentity.validate();
-			world.setTileEntity(x, y, z, tileentity);
+			int meta = world.getBlockData(tilePos);
+			Block<? extends BlockLogic> block = lit ? Blocks.getBlock(idleID+1) : Blocks.getBlock(idleID);
+			world.setBlockTypeDataRaw(tilePos, block, meta);
+			world.notifyBlockChange(tilePos, block);
 		}
 	}
 }
