@@ -3,29 +3,28 @@ package fl205.ironfurnaces;
 import fl205.ironfurnaces.blocks.BlockLogicDiamondFurnace;
 import fl205.ironfurnaces.blocks.BlockLogicGoldFurnace;
 import fl205.ironfurnaces.blocks.BlockLogicSteelFurnace;
-import fl205.ironfurnaces.tileEntities.TileEntityDiamondFurnace;
-import fl205.ironfurnaces.tileEntities.TileEntityGoldFurnace;
-import fl205.ironfurnaces.tileEntities.TileEntityIronFurnace;
-import fl205.ironfurnaces.tileEntities.TileEntitySteelFurnace;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.sound.BlockSounds;
-import net.minecraft.core.util.collection.NamespaceID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import turniplabs.halplibe.HalpLibe;
+import turniplabs.halplibe.event.defs.CommonEvents;
 import turniplabs.halplibe.helper.BlockBuilder;
-import turniplabs.halplibe.helper.EntityHelper;
-import turniplabs.halplibe.util.GameStartEntrypoint;
+import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryCategory;
+import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryPlacement;
 import turniplabs.halplibe.util.TomlConfigHandler;
+import turniplabs.halplibe.util.dependency.Key;
 import turniplabs.halplibe.util.toml.Toml;
 
 import fl205.ironfurnaces.blocks.BlockLogicIronFurnace;
 
 
-public class IronFurnaces implements ModInitializer, GameStartEntrypoint {
-    public static final String MOD_ID = "ironfurnaces";
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+public class IronFurnaces implements ModInitializer {
+	public static final String MOD_ID = HalpLibe.registerMod("ironfurnaces", true);
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	// Config TOML file manager
 
@@ -69,19 +68,24 @@ public class IronFurnaces implements ModInitializer, GameStartEntrypoint {
 
 	@Override
     public void onInitialize() {
+		CommonEvents.BEFORE_GAME_START.listen(Key.of(MOD_ID), IronFurnacesEntities::beforeGameStart);
+		CommonEvents.RECIPES_READY.listen(Key.of(MOD_ID), IronFurnacesRecipes::onRecipesReady);
+
+
 		BlockBuilder idleFurnaceBuilder = new BlockBuilder(MOD_ID)
 			.setBlockSound(BlockSounds.METAL)
 			.setHardness(5.0F)
 			.setResistance(10.0F)
-			.setImmovable()
-			.setTags(BlockTags.MINEABLE_BY_PICKAXE);
+			//.setImmovable()
+			.setTags(BlockTags.MINEABLE_BY_PICKAXE)
+			.setCreativeInventoryPlacement(new CreativeInventoryPlacement.Category(CreativeInventoryCategory.WORKBENCHES));
 
 		BlockBuilder activeFurnaceBuilder = new BlockBuilder(MOD_ID)
 			.setBlockSound(BlockSounds.METAL)
 			.setHardness(5.0F)
 			.setResistance(10.0F)
 			.setLuminance(13)
-			.setImmovable()
+			//.setImmovable()
 			.setTags(BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.MINEABLE_BY_PICKAXE);
 
 
@@ -112,18 +116,5 @@ public class IronFurnaces implements ModInitializer, GameStartEntrypoint {
 			.build("furnace.steel.active", "furnace_steel_active", furnaceSteelIdle.id() + 1, b -> new BlockLogicSteelFurnace(b, true));
 
 		LOGGER.info("IronFurnaces mod initialized.");
-	}
-
-    @Override
-	public void beforeGameStart() {
-		// Tile Entities
-		EntityHelper.createTileEntity(TileEntityIronFurnace.class,  NamespaceID.getPermanent(MOD_ID, "furnace_iron"));
-		EntityHelper.createTileEntity(TileEntityGoldFurnace.class, NamespaceID.getPermanent(MOD_ID, "furnace_gold"));
-		EntityHelper.createTileEntity(TileEntityDiamondFurnace.class, NamespaceID.getPermanent(MOD_ID, "furnace_diamond"));
-		EntityHelper.createTileEntity(TileEntitySteelFurnace.class, NamespaceID.getPermanent(MOD_ID, "furnace_steel"));
-	}
-
-	@Override
-	public void afterGameStart() {
 	}
 }

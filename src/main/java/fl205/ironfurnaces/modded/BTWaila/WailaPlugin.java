@@ -1,5 +1,5 @@
 package fl205.ironfurnaces.modded.BTWaila;
-
+/*
 import fl205.ironfurnaces.tileEntities.TileEntityDiamondFurnace;
 import fl205.ironfurnaces.tileEntities.TileEntityGoldFurnace;
 import fl205.ironfurnaces.tileEntities.TileEntityIronFurnace;
@@ -21,3 +21,4 @@ public class WailaPlugin implements BTWailaCustomTooltipPlugin {
 		inventory.addClass(TileEntitySteelFurnace.class);
 	}
 }
+*/

@@ -4,18 +4,19 @@ import fl205.ironfurnaces.blocks.BlockLogicCustomFurnace;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.core.block.BlockLogicFurnace;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntityFurnace;
 import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryFurnace;
 import net.minecraft.core.entity.EntityItem;
+import net.minecraft.core.item.ItemBucket;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 
 public abstract class TileEntityCustomFurnace extends TileEntityFurnace {
-	private final Random random = new Random();
 	protected final int speedModifier;
 	protected final int fuelYieldModifier;
 	protected final int idleID;
@@ -34,7 +35,7 @@ public abstract class TileEntityCustomFurnace extends TileEntityFurnace {
 		}
 
 		if (this.worldObj == null || !this.worldObj.isClientSide) {
-			if ((this.worldObj == null || this.worldObj.getBlockId(this.x, this.y, this.z) == idleID) && this.currentBurnTime == 0 && this.furnaceItemStacks[0] == null && this.furnaceItemStacks[1] != null && this.furnaceItemStacks[1].itemID == Blocks.COBBLE_NETHERRACK.id()) {
+			if ((this.worldObj == null || this.worldObj.getBlockId(this.tilePos.x, this.tilePos.y, this.tilePos.z) == this.idleID) && this.currentBurnTime == 0 && this.furnaceItemStacks[0] == null && this.furnaceItemStacks[1] != null && this.furnaceItemStacks[1].itemID == Blocks.COBBLE_NETHERRACK.id()) {
 				--this.furnaceItemStacks[1].stackSize;
 				if (this.furnaceItemStacks[1].stackSize <= 0) {
 					this.furnaceItemStacks[1] = null;
@@ -49,11 +50,15 @@ public abstract class TileEntityCustomFurnace extends TileEntityFurnace {
 				if (this.currentBurnTime > 0) {
 					furnaceUpdated = true;
 					if (this.furnaceItemStacks[1] != null) {
-						if (this.furnaceItemStacks[1].getItem() == Items.BUCKET_LAVA) {
-							this.furnaceItemStacks[1] = new ItemStack(Items.BUCKET);
+						ItemStack fuelStack = this.furnaceItemStacks[1];
+						if (fuelStack.getItem() instanceof ItemBucket && ItemBucket.STATE_LAVA.equals(ItemBucket.getState(fuelStack))) {
+							ItemBucket.setCharges(fuelStack, ItemBucket.getCharges(fuelStack) - 1);
+							if (ItemBucket.getCharges(fuelStack) <= 0) {
+								ItemBucket.setState(fuelStack, ItemBucket.STATE_EMPTY);
+							}
 						} else {
-							--this.furnaceItemStacks[1].stackSize;
-							if (this.furnaceItemStacks[1].stackSize <= 0) {
+							--fuelStack.stackSize;
+							if (fuelStack.stackSize <= 0) {
 								this.furnaceItemStacks[1] = null;
 							}
 						}
@@ -112,42 +117,13 @@ public abstract class TileEntityCustomFurnace extends TileEntityFurnace {
 
 	protected void updateFurnace(boolean forceLit) {
 		if (this.worldObj != null) {
-			BlockLogicCustomFurnace.updateFurnaceBlockState(forceLit | this.currentBurnTime > 0, this.worldObj, this.x, this.y, this.z, idleID);
+			BlockLogicCustomFurnace.updateFurnaceBlockState(this.worldObj, this.tilePos, forceLit | this.currentBurnTime > 0, this.idleID);
 		} else if (this.carriedBlock != null) {
-			this.carriedBlock.blockId = forceLit | this.currentBurnTime > 0 ? idleID + 1 : idleID;
+			this.carriedBlock.blockId = forceLit | this.currentBurnTime > 0 ? this.idleID+1 : this.idleID;
 		}
 	}
 
 	private int getBurnTimeFromItem(ItemStack itemStack) {
 		return itemStack == null ? 0 : ((fuelYieldModifier * (LookupFuelFurnace.instance.getFuelYield(itemStack.getItem().id)))/speedModifier);
-	}
-
-	public void dropContents(World world, int x, int y, int z) {
-		if (!BlockLogicCustomFurnace.keepFurnaceInventory) {
-			for(int l = 0; l < this.getContainerSize(); ++l) {
-				ItemStack itemstack = this.getItem(l);
-				if (itemstack != null) {
-					float f = this.random.nextFloat() * 0.8F + 0.1F;
-					float f1 = this.random.nextFloat() * 0.8F + 0.1F;
-					float f2 = this.random.nextFloat() * 0.8F + 0.1F;
-
-					while(itemstack.stackSize > 0) {
-						int i1 = this.random.nextInt(21) + 10;
-						if (i1 > itemstack.stackSize) {
-							i1 = itemstack.stackSize;
-						}
-
-						itemstack.stackSize -= i1;
-						EntityItem entityItem = new EntityItem(world, (float)x + f, (float)y + f1, (float)z + f2, new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
-						float f3 = 0.05F;
-						entityItem.xd = (float)this.random.nextGaussian() * f3;
-						entityItem.yd = (float)this.random.nextGaussian() * f3 + 0.2F;
-						entityItem.zd = (float)this.random.nextGaussian() * f3;
-						world.entityJoinedWorld(entityItem);
-					}
-				}
-			}
-		}
-
 	}
 }
