@@ -29,6 +29,12 @@ repositories {
         patternLayout { artifact("v1/[organisation]/[revision]/[module].jar") }
         metadataSources { artifact() }
     }
+    ivy("https://github.com/ToufouMaster/BTWaila/releases/download/") {
+        name = "BTWailaGithubReleases"
+        patternLayout { artifact("[revision]/[module].[ext]") }
+        metadataSources { artifact() }
+        content { includeGroup("useless") }
+    }
 }
 dependencies {
     minecraft("::${libs.versions.bta.get()}")
@@ -37,6 +43,7 @@ dependencies {
 	// included in builds as a runtime dependency
 	implementation(libs.loader)
 	implementation(libs.halplibe) // If you do not need halplibe you can delete this line
+    implementation(libs.btwaila) // For BTWaila support
 
 	// Only required at compilation
 	// provides documentation, can be removed if that isn't needed

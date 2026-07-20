@@ -5,7 +5,6 @@ import fl205.ironfurnaces.blocks.BlockLogicGoldFurnace;
 import fl205.ironfurnaces.blocks.BlockLogicSteelFurnace;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.sound.BlockSounds;
 import org.slf4j.Logger;
@@ -69,8 +68,8 @@ public class IronFurnaces implements ModInitializer {
 	@Override
     public void onInitialize() {
 		CommonEvents.BEFORE_GAME_START.listen(Key.of(MOD_ID), IronFurnacesEntities::beforeGameStart);
+		CommonEvents.RECIPES_NAMESPACE_INIT.listen(Key.of(MOD_ID), IronFurnacesRecipes::initNamespaces);
 		CommonEvents.RECIPES_READY.listen(Key.of(MOD_ID), IronFurnacesRecipes::onRecipesReady);
-
 
 		BlockBuilder idleFurnaceBuilder = new BlockBuilder(MOD_ID)
 			.setBlockSound(BlockSounds.METAL)

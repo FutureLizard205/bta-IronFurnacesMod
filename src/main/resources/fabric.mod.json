@@ -21,8 +21,8 @@
     "main": [
       "fl205.ironfurnaces.IronFurnaces"
     ],
-		"initModels": [
-			"fl205.ironfurnaces.IronFurnacesBlockModels"
+		"client": [
+			"fl205.ironfurnaces.IronFurnacesClient"
 		],
 		"btwaila": [
 			"fl205.ironfurnaces.modded.BTWaila.WailaPlugin"

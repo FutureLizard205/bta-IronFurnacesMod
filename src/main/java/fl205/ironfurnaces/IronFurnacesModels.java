@@ -1,18 +1,12 @@
 package fl205.ironfurnaces;
 
-import net.minecraft.client.render.EntityRendererDispatcher;
-import net.minecraft.client.render.TileEntityRenderDispatcher;
-import net.minecraft.client.render.block.color.BlockColorDispatcher;
 import net.minecraft.client.render.block.model.BlockModelDispatcher;
 import net.minecraft.client.render.block.model.BlockModelHorizontalRotation;
-import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.core.util.helper.Side;
-import turniplabs.halplibe.util.ModelEntrypoint;
 
 import static fl205.ironfurnaces.IronFurnaces.*;
 
-public class IronFurnacesBlockModels implements ModelEntrypoint {
-	@Override
+public class IronFurnacesModels {
 	public void initBlockModels(BlockModelDispatcher dispatcher) {
 		dispatcher.addDispatch(furnaceIronIdle, new BlockModelHorizontalRotation<>(furnaceIronIdle).setTex("ironfurnaces:block/ironfurnacetop", Side.TOP)
 			.setTex("ironfurnaces:block/ironfurnacebottom", Side.BOTTOM)
@@ -60,25 +54,5 @@ public class IronFurnacesBlockModels implements ModelEntrypoint {
 			.setTex("ironfurnaces:block/steelfurnacebottom", Side.BOTTOM)
 			.setTex("ironfurnaces:block/steelfurnaceside", Side.WEST, Side.EAST, Side.SOUTH)
 			.setTex("ironfurnaces:block/steelfurnaceactivefront", Side.NORTH));
-	}
-
-	@Override
-	public void initItemModels(ItemModelDispatcher dispatcher) {
-
-	}
-
-	@Override
-	public void initEntityModels(EntityRendererDispatcher dispatcher) {
-
-	}
-
-	@Override
-	public void initTileEntityModels(TileEntityRenderDispatcher dispatcher) {
-
-	}
-
-	@Override
-	public void initBlockColors(BlockColorDispatcher dispatcher) {
-
 	}
 }

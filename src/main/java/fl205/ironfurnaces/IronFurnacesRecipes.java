@@ -2,11 +2,16 @@ package fl205.ironfurnaces;
 
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.Items;
+import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.helper.recipeBuilders.RecipeBuilderShaped;
 
 import static fl205.ironfurnaces.IronFurnaces.*;
 
 public class IronFurnacesRecipes {
+	public static void initNamespaces() {
+		RecipeBuilder.initNameSpace(MOD_ID);
+	}
+
 	public static void onRecipesReady() {
 		// Template
 		RecipeBuilderShaped furnace = new RecipeBuilderShaped(MOD_ID, "AAA", "AFA", "AAA");
