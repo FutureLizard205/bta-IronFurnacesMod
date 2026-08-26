@@ -1,23 +1,23 @@
-tile.furnace.stone.idle.name=Stone Furnace
-tile.furnace.stone.active.name=Lit Stone Furnace
-
-
 tile.ironfurnaces.furnace.iron.idle.name=Iron Furnace
 tile.ironfurnaces.furnace.iron.active.name=Lit Iron Furnace
 tile.ironfurnaces.furnace.iron.idle.desc=Like a regular stone furnace, but faster and more efficient.
 tile.ironfurnaces.furnace.iron.active.desc=Like a regular stone furnace, but faster and more efficient.
+gui.ironfurnaces.furnace.iron.label.furnace=Iron Furnace
 
 tile.ironfurnaces.furnace.gold.idle.name=Gold Furnace
 tile.ironfurnaces.furnace.gold.active.name=Lit Gold Furnace
 tile.ironfurnaces.furnace.gold.idle.desc=Like a regular stone furnace, but much faster and a bit less efficient.
 tile.ironfurnaces.furnace.gold.active.desc=Like a regular stone furnace, but much faster and a bit less efficient.
+gui.ironfurnaces.furnace.gold.label.furnace=Gold Furnace
 
 tile.ironfurnaces.furnace.diamond.idle.name=Diamond Furnace
 tile.ironfurnaces.furnace.diamond.active.name=Lit Diamond Furnace
 tile.ironfurnaces.furnace.diamond.idle.desc=A much improved version of an iron furnace, very fast and efficient.
 tile.ironfurnaces.furnace.diamond.active.desc=A much improved version of an iron furnace, very fast and efficient.
+gui.ironfurnaces.furnace.diamond.label.furnace=Diamond Furnace
 
 tile.ironfurnaces.furnace.steel.idle.name=Steel Furnace
 tile.ironfurnaces.furnace.steel.active.name=Lit Steel Furnace
 tile.ironfurnaces.furnace.steel.idle.desc=Similar to a conventional stone furnace, but much more efficient.
 tile.ironfurnaces.furnace.steel.active.desc=Similar to a conventional stone furnace, but much more efficient.
+gui.ironfurnaces.furnace.steel.label.furnace=Steel Furnace

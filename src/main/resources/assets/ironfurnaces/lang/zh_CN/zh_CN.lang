@@ -1,23 +1,23 @@
-tile.furnace.stone.idle.name=熔炉
-tile.furnace.stone.active.name=工作中的熔炉
-
-
 tile.ironfurnaces.furnace.iron.idle.name=铁制熔炉
 tile.ironfurnaces.furnace.iron.active.name=工作中的铁制熔炉
 tile.ironfurnaces.furnace.iron.idle.desc=与常规熔炉类似，但燃烧速度要更快一些，且燃料燃烧效率更高。
 tile.ironfurnaces.furnace.iron.active.desc=与常规熔炉类似，但运行速度要更快一些，且燃料燃烧效率更高。
+gui.ironfurnaces.furnace.iron.label.furnace=铁制熔炉
 
 tile.ironfurnaces.furnace.gold.idle.name=金制熔炉
 tile.ironfurnaces.furnace.gold.active.name=工作中的金制熔炉
 tile.ironfurnaces.furnace.gold.idle.desc=与普通的熔炉类似，速度更快，但燃料的燃烧效率略有降低。
 tile.ironfurnaces.furnace.gold.active.desc=与普通的熔炉类似，速度更快，但燃料的燃烧效率略有降低。
+gui.ironfurnaces.furnace.gold.label.furnace=金制熔炉
 
 tile.ironfurnaces.furnace.diamond.idle.name=钻石熔炉
 tile.ironfurnaces.furnace.diamond.active.name=工作中的钻石熔炉
 tile.ironfurnaces.furnace.diamond.idle.desc=一款经过大幅改进的铁制熔炉，有着最快的燃烧速度，且燃料的燃烧效率显著提高。
 tile.ironfurnaces.furnace.diamond.active.desc=一款经过大幅改进的铁制熔炉，有着最快的燃烧速度，且燃料的燃烧效率显著提高。
+gui.ironfurnaces.furnace.diamond.label.furnace=钻石熔炉
 
 tile.ironfurnaces.furnace.steel.idle.name=钢制熔炉
 tile.ironfurnaces.furnace.steel.active.name=工作中的钢制熔炉
 tile.ironfurnaces.furnace.steel.idle.desc=类似于普通的熔炉，但燃料的效率要高得多。
 tile.ironfurnaces.furnace.steel.active.desc=类似于普通的熔炉，但燃料的效率要高得多。
+gui.ironfurnaces.furnace.steel.label.furnace=钢制熔炉

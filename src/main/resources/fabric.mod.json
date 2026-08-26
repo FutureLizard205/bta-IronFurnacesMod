@@ -28,6 +28,9 @@
 			"fl205.ironfurnaces.modded.BTWaila.WailaPlugin"
 		]
   },
+	"mixins": [
+		"ironfurnaces.mixins.json"
+	],
 
   "depends": {
 		"fabricloader": ">=${fabricloader}",

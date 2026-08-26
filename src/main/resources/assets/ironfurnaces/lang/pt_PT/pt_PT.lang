@@ -1,22 +1,23 @@
-tile.furnace.stone.idle.name=Fornalha de Pedra
-tile.furnace.stone.active.name=Fornalha de Pedra Acesa
-
 tile.ironfurnaces.furnace.iron.idle.name=Fornalha de Ferro
 tile.ironfurnaces.furnace.iron.active.name=Fornalha de Ferro Acesa
 tile.ironfurnaces.furnace.iron.idle.desc=Semelhante a uma fornalha de pedra, mas mais rápida e eficiente.
 tile.ironfurnaces.furnace.iron.active.desc=Semelhante a uma fornalha de pedra, mas mais rápida e eficiente.
+gui.ironfurnaces.furnace.iron.label.furnace=Fornalha de Ferro
 
 tile.ironfurnaces.furnace.gold.idle.name=Fornalha de Ouro
 tile.ironfurnaces.furnace.gold.active.name=Fornalha de Ouro Acesa
 tile.ironfurnaces.furnace.gold.idle.desc=Semelhante a uma fornalha de pedra, mas muito mais rápida e um pouco menos eficiente.
 tile.ironfurnaces.furnace.gold.active.desc=Semelhante a uma fornalha de pedra, mas muito mais rápida e um pouco menos eficiente.
+gui.ironfurnaces.furnace.gold.label.furnace=Fornalha de Ouro
 
 tile.ironfurnaces.furnace.diamond.idle.name=Fornalha de Diamante
 tile.ironfurnaces.furnace.diamond.active.name=Fornalha de Diamante Acesa
 tile.ironfurnaces.furnace.diamond.idle.desc=Uma versão melhorada da fornalha de ferro, muito rápida e eficiente.
 tile.ironfurnaces.furnace.diamond.active.desc=Uma versão melhorada da fornalha de ferro, muito rápida e eficiente.
+gui.ironfurnaces.furnace.diamond.label.furnace=Fornalha de Diamante
 
 tile.ironfurnaces.furnace.steel.idle.name=Fornalha de Aço
 tile.ironfurnaces.furnace.steel.active.name=Fornalha de Aço Acesa
 tile.ironfurnaces.furnace.steel.idle.desc=Semelhante a uma fornalha de pedra, mas muito mais eficiente.
 tile.ironfurnaces.furnace.steel.active.desc=Semelhante a uma fornalha de pedra, mas muito mais eficiente.
+gui.ironfurnaces.furnace.steel.label.furnace=Fornalha de Aço
