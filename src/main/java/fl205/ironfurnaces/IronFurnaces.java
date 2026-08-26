@@ -3,15 +3,21 @@ package fl205.ironfurnaces;
 import fl205.ironfurnaces.blocks.BlockLogicDiamondFurnace;
 import fl205.ironfurnaces.blocks.BlockLogicGoldFurnace;
 import fl205.ironfurnaces.blocks.BlockLogicSteelFurnace;
+import fl205.ironfurnaces.tileEntities.TileEntityDiamondFurnace;
+import fl205.ironfurnaces.tileEntities.TileEntityGoldFurnace;
+import fl205.ironfurnaces.tileEntities.TileEntityIronFurnace;
+import fl205.ironfurnaces.tileEntities.TileEntitySteelFurnace;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.sound.BlockSounds;
+import net.minecraft.core.util.collection.NamespaceID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.HalpLibe;
 import turniplabs.halplibe.event.defs.CommonEvents;
 import turniplabs.halplibe.helper.BlockBuilder;
+import turniplabs.halplibe.helper.EntityHelper;
 import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryCategory;
 import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryPlacement;
 import turniplabs.halplibe.util.TomlConfigHandler;
@@ -67,7 +73,6 @@ public class IronFurnaces implements ModInitializer {
 
 	@Override
     public void onInitialize() {
-		CommonEvents.BEFORE_GAME_START.listen(Key.of(MOD_ID), IronFurnacesEntities::beforeGameStart);
 		CommonEvents.RECIPES_NAMESPACE_INIT.listen(Key.of(MOD_ID), IronFurnacesRecipes::initNamespaces);
 		CommonEvents.RECIPES_READY.listen(Key.of(MOD_ID), IronFurnacesRecipes::onRecipesReady);
 
@@ -113,6 +118,12 @@ public class IronFurnaces implements ModInitializer {
 		furnaceSteelActive = activeFurnaceBuilder
 			.setResistance(2000.0F)
 			.build("furnace.steel.active", "furnace_steel_active", furnaceSteelIdle.id() + 1, b -> new BlockLogicSteelFurnace(b, true));
+
+
+		EntityHelper.addMapping(TileEntityIronFurnace.class,  new NamespaceID(MOD_ID, "furnace_iron"));
+		EntityHelper.addMapping(TileEntityGoldFurnace.class, new NamespaceID(MOD_ID, "furnace_gold"));
+		EntityHelper.addMapping(TileEntityDiamondFurnace.class, new NamespaceID(MOD_ID, "furnace_diamond"));
+		EntityHelper.addMapping(TileEntitySteelFurnace.class, new NamespaceID(MOD_ID, "furnace_steel"));
 
 		LOGGER.info("IronFurnaces mod initialized.");
 	}
