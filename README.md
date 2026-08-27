@@ -19,7 +19,7 @@ Note: Fuel Yield here is in terms of items smelt per fuel used, not in terms of 
 
 ### Preview
 
-![Picture of the 4 furnaces this mod adds!](https://github.com/FutureLizard205/bta-IronFurnacesMod/blob/7.3/preview.jpeg "All furnaces this mod adds")
+![Picture of the 4 furnaces this mod adds!](https://github.com/FutureLizard205/bta-IronFurnacesMod/blob/8.0/preview.webp "All furnaces this mod adds")
 
 ### Config File
 All of the values in the table above can be changed in the TOML config file.
