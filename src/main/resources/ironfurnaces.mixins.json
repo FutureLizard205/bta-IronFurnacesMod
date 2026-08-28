@@ -3,11 +3,14 @@
   "package": "fl205.ironfurnaces.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "Entity.MixinEntityPlayer"
   ],
   "client": [
-    "ScreenFurnaceMixin"
+    "MixinPackerHandlerClient",
+    "Entity.MixinEntityPlayerLocal"
   ],
   "server": [
+    "Entity.MixinEntityPlayerServer"
   ],
   "injectors": {
     "defaultRequire": 1

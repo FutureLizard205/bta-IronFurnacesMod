@@ -1,5 +1,7 @@
 package fl205.ironfurnaces.blocks;
 
+import fl205.ironfurnaces.MixinInterfaces.IEntityPlayer;
+import fl205.ironfurnaces.tileEntities.TileEntityCustomFurnace;
 import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
@@ -76,9 +78,9 @@ public abstract class BlockLogicCustomFurnace extends BlockLogicRotatable {
 
 	public boolean onInteracted(@NotNull World world, @NotNull TilePosc tilePos, @NotNull Player player, @Nullable Side side, double xHit, double yHit) {
 		if (!world.isClientSide) {
-			TileEntity var10 = world.getTileEntity(tilePos);
-			if (var10 instanceof TileEntityFurnace furnace) {
-				player.displayFurnaceScreen(furnace);
+			TileEntity tileEntity = world.getTileEntity(tilePos);
+			if (tileEntity instanceof TileEntityCustomFurnace furnace) {
+				((IEntityPlayer)player).fl205ironfurnaces$displayGUICustomFurnace(furnace);
 			}
 		}
 

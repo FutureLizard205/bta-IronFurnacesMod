@@ -2,19 +2,14 @@ package fl205.ironfurnaces.tileEntities;
 
 import fl205.ironfurnaces.blocks.BlockLogicCustomFurnace;
 import java.util.List;
-import java.util.Random;
 
-import net.minecraft.core.block.BlockLogicFurnace;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntityFurnace;
 import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryFurnace;
-import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.item.ItemBucket;
-import net.minecraft.core.item.Items;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.world.World;
 
 public abstract class TileEntityCustomFurnace extends TileEntityFurnace {
 	protected final int speedModifier;

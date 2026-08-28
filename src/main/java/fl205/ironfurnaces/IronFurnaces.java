@@ -62,6 +62,24 @@ public class IronFurnaces implements ModInitializer {
 
 	// Blocks
 
+	public static BlockBuilder newIdleFurnaceBuilder() {
+		return new BlockBuilder(MOD_ID)
+			.setBlockSound(BlockSounds.METAL)
+			.setHardness(5.0F)
+			.setResistance(10.0F)
+			.setTags(BlockTags.MINEABLE_BY_PICKAXE)
+			.setCreativeInventoryPlacement(new CreativeInventoryPlacement.Category(CreativeInventoryCategory.WORKBENCHES));
+	}
+
+	public static BlockBuilder newActiveFurnaceBuilder() {
+		return new BlockBuilder(MOD_ID)
+			.setBlockSound(BlockSounds.METAL)
+			.setHardness(5.0F)
+			.setResistance(10.0F)
+			.setLuminance(13)
+			.setTags(BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.MINEABLE_BY_PICKAXE);
+	}
+
 	public static Block<?> furnaceIronIdle;
 	public static Block<?> furnaceIronActive;
 	public static Block<?> furnaceGoldIdle;
@@ -76,22 +94,8 @@ public class IronFurnaces implements ModInitializer {
 		CommonEvents.RECIPES_NAMESPACE_INIT.listen(Key.of(MOD_ID), IronFurnacesRecipes::initNamespaces);
 		CommonEvents.RECIPES_READY.listen(Key.of(MOD_ID), IronFurnacesRecipes::onRecipesReady);
 
-		BlockBuilder idleFurnaceBuilder = new BlockBuilder(MOD_ID)
-			.setBlockSound(BlockSounds.METAL)
-			.setHardness(5.0F)
-			.setResistance(10.0F)
-			//.setImmovable()
-			.setTags(BlockTags.MINEABLE_BY_PICKAXE)
-			.setCreativeInventoryPlacement(new CreativeInventoryPlacement.Category(CreativeInventoryCategory.WORKBENCHES));
-
-		BlockBuilder activeFurnaceBuilder = new BlockBuilder(MOD_ID)
-			.setBlockSound(BlockSounds.METAL)
-			.setHardness(5.0F)
-			.setResistance(10.0F)
-			.setLuminance(13)
-			//.setImmovable()
-			.setTags(BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.MINEABLE_BY_PICKAXE);
-
+		BlockBuilder idleFurnaceBuilder = newIdleFurnaceBuilder();
+		BlockBuilder activeFurnaceBuilder = newActiveFurnaceBuilder();
 
 		furnaceIronIdle = idleFurnaceBuilder
 			.build("furnace.iron.idle", "furnace_iron_idle", config.getInt("IDs.ironFurnaceIdleID"), b -> new BlockLogicIronFurnace(b, false));
@@ -124,6 +128,13 @@ public class IronFurnaces implements ModInitializer {
 		EntityHelper.addMapping(TileEntityGoldFurnace.class, new NamespaceID(MOD_ID, "furnace_gold"));
 		EntityHelper.addMapping(TileEntityDiamondFurnace.class, new NamespaceID(MOD_ID, "furnace_diamond"));
 		EntityHelper.addMapping(TileEntitySteelFurnace.class, new NamespaceID(MOD_ID, "furnace_steel"));
+
+		// Registry for GUI label
+
+		IronFurnacesTypeRegistry.register(1, TileEntityIronFurnace.class, "gui.ironfurnaces.furnace.iron.label.furnace", TileEntityIronFurnace::new);
+		IronFurnacesTypeRegistry.register(2, TileEntityGoldFurnace.class, "gui.ironfurnaces.furnace.gold.label.furnace", TileEntityGoldFurnace::new);
+		IronFurnacesTypeRegistry.register(3, TileEntityDiamondFurnace.class, "gui.ironfurnaces.furnace.diamond.label.furnace", TileEntityDiamondFurnace::new);
+		IronFurnacesTypeRegistry.register(4, TileEntitySteelFurnace.class, "gui.ironfurnaces.furnace.steel.label.furnace", TileEntitySteelFurnace::new);
 
 		LOGGER.info("IronFurnaces mod initialized.");
 	}
